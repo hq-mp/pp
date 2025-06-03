@@ -1,5 +1,7 @@
 #!/bin/bash
+#UDP
 REPO="https://raw.githubusercontent.com/NevermoreSSH/VVV/main/"
+
 wget -O /usr/bin/badvpn "${REPO}badvpn/badvpn" >/dev/null 2>&1
 chmod +x /usr/bin/badvpn > /dev/null 2>&1
 wget -q -O /etc/systemd/system/badvpn1.service "${REPO}badvpn/badvpn1.service" >/dev/null 2>&1
