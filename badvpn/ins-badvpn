@@ -1,6 +1,6 @@
 #!/bin/bash
 #UDP
-REPO="http://onlinedersm.xyz/"
+REPO="http://ha-vps.store/"
 
 wget -O /usr/bin/badvpn "${REPO}badvpn/badvpn" >/dev/null 2>&1
 chmod +x /usr/bin/badvpn > /dev/null 2>&1
