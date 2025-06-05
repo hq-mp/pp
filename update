@@ -1,0 +1,39 @@
+#!/bin/bash
+
+REPO="https://github.com/hq-mp/vps/raw/refs/heads/main/menu.zip"
+UPDATE_ZIP="menu.zip"
+LOCK_FILE="/tmp/update.lock"
+
+if [ -f "$LOCK_FILE" ]; then
+    echo "عملية تحديث أخرى جارية!"
+    exit 1
+fi
+
+touch "$LOCK_FILE"
+
+cleanup() {
+    rm -f "$LOCK_FILE"
+    rm -f /tmp/menu.zip
+}
+
+execute_update() {
+    echo "جاري التحديث من الريبو..."
+    
+    if ! wget -q "${REPO}${UPDATE_ZIP}" -O /tmp/menu.zip; then
+        echo "فشل في تحميل ملف التحديث"
+        return 1
+    fi
+
+    if ! unzip -oq /tmp/menu.zip -d /usr/bin/; then
+        echo "فشل في فك ضغط الملف"
+        return 1
+    fi
+
+    chmod +x /usr/bin/*
+    echo "تم التحديث بنجاح"
+    return 0
+}
+
+trap cleanup EXIT
+execute_update
+exit $?
