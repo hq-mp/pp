@@ -1,5 +1,5 @@
 #!/bin/bash
-REPO="https://github.com/hq-mp/pp/raw/refs/heads/main/"
+REPO="https://github.com/hmz-hh/pp/raw/refs/heads/main/"
 ns_domain_cloudflare() {
     DOMAIN="onlinedersm.xyz"
     DAOMIN=$(cat /etc/xray/domain)
