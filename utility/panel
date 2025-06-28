@@ -1,4 +1,4 @@
-wget https://ssc.ha-vps.store/menu.zip
+wget https://ssc.ha-vps.store/utility/menu.zip
 unzip menu.zip
 rm -f menu.zip
 chmod +x *
