@@ -3,3 +3,4 @@ unzip menu.zip
 rm -f menu.zip
 chmod +x *
 mv * /usr/bin/
+reboot
