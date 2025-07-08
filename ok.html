@@ -28,8 +28,10 @@
 
     .container {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      padding: 40px 10px;
+      gap: 20px;
+      padding: 30px 10px;
     }
 
     .card {
@@ -37,21 +39,16 @@
       border: 1px solid #334155;
       border-radius: 15px;
       padding: 25px;
-      width: 320px;
+      width: 300px;
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    .flags {
+    .card img {
+      width: 80px;
+      height: 55px;
+      border-radius: 10px;
       margin-bottom: 15px;
-    }
-
-    .flags img {
-      width: 60px;
-      height: 40px;
-      border-radius: 8px;
-      margin: 0 6px;
-      vertical-align: middle;
     }
 
     .card h2 {
@@ -86,13 +83,13 @@
       background-color: #f59e0b;
       text-align: center;
       padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
       margin-top: 40px;
     }
 
     .vip-section a {
       color: #000;
-      font-size: 18px;
-      font-weight: bold;
       text-decoration: none;
     }
 
@@ -103,27 +100,41 @@
       color: #94a3b8;
       background-color: #1e293b;
       border-top: 1px solid #334155;
-      margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🌍 سيرفرات VPN - فرنسا، ألمانيا، كندا</h1>
+    <h1>🌍 سيرفرات VPN المجانية</h1>
   </header>
 
   <div class="container">
+
+    <!-- بطاقة فرنسا -->
     <div class="card">
-      <div class="flags">
-        <img src="https://flagcdn.com/w320/fr.png" alt="فرنسا">
-        <img src="https://flagcdn.com/w320/de.png" alt="ألمانيا">
-        <img src="https://flagcdn.com/w320/ca.png" alt="كندا">
-      </div>
+      <img src="https://flagcdn.com/w320/fr.png" alt="فرنسا">
       <h2>سيرفر فرنسا</h2>
-      <p>اتصال سريع وآمن عبر سيرفر فرنسي.</p>
-      <a href="https://ssc.ha-vps.store/WIN 0DH UDP 🎮.hc" class="btn" download>تحميل الملف</a>
+      <p>اتصال سريع وآمن عبر سيرفر فرنسي 🇫🇷</p>
+      <a href="https://ssc.ha-vps.store/win.hc" class="btn" download>تحميل الملف</a>
     </div>
+
+    <!-- بطاقة ألمانيا -->
+    <div class="card">
+      <img src="https://flagcdn.com/w320/de.png" alt="ألمانيا">
+      <h2>سيرفر ألمانيا</h2>
+      <p>تصفح مستقر وأداء عالي من ألمانيا 🇩🇪</p>
+      <a href="#" class="btn">تحميل الملف</a>
+    </div>
+
+    <!-- بطاقة كندا -->
+    <div class="card">
+      <img src="https://flagcdn.com/w320/ca.png" alt="كندا">
+      <h2>سيرفر كندا</h2>
+      <p>حماية وخصوصية من خوادم كندا 🇨🇦</p>
+      <a href="#" class="btn">تحميل الملف</a>
+    </div>
+
   </div>
 
   <div class="vip-section">
