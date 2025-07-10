@@ -1,1 +1,1 @@
-wget -O /etc/banner https://github.com/hmz-hh/pp/raw/refs/heads/main/dropbear/banner && echo "تم تحديث /etc/banner بنجاح"
+exit
