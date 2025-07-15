@@ -1,0 +1,91 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+OR='\033[0;33m'
+NC='\033[0m'
+
+EXPIRY_URL="https://github.com/hmz-hh/pp/raw/refs/heads/main/utility/expired"
+EXPIRY_FILE="/etc/.hmz_expiry_data"
+BACKUP_MENU="/usr/bin/menu.original"
+
+DEV_NAME="HMZ-HH"
+DEV_CONTACT="Contact@example.com"
+DEV_TELEGRAM="@hmz_hh"
+
+convert_to_seconds() {
+  echo $(( $1 * 2592000 + $2 * 86400 + $3 * 3600 + $4 * 60 ))
+}
+
+get_github_line() {
+  local my_ip=$(curl -s -4 ifconfig.me)
+  local content=$(curl -fsSL "$EXPIRY_URL")
+  echo "$content" | grep "^$my_ip@"
+}
+
+save_new_expiry() {
+  local line="$1"
+  local duration=$2
+  local now=$(date +%s)
+  echo "$line|$duration|$now" > "$EXPIRY_FILE"
+}
+
+disable_menu() {
+  if [ -f /usr/bin/menu ]; then
+    [ ! -f "$BACKUP_MENU" ] && cp /usr/bin/menu "$BACKUP_MENU"
+    cat > /usr/bin/menu <<EOF
+#!/bin/bash
+echo -e "${RED}❌ انتهت صلاحية الاستخدام! المرجو التواصل مع المطور.${NC}"
+echo "اسم المطور: $DEV_NAME"
+echo "الاتصال: $DEV_CONTACT"
+echo "تيليجرام: $DEV_TELEGRAM"
+EOF
+    chmod +x /usr/bin/menu
+  fi
+}
+
+restore_menu() {
+  [ -f "$BACKUP_MENU" ] && cp "$BACKUP_MENU" /usr/bin/menu && chmod +x /usr/bin/menu
+}
+
+check_expiry() {
+  local line=$(get_github_line)
+  if [ -z "$line" ]; then
+    disable_menu
+    return 1
+  fi
+
+  local time_part=$(echo "$line" | cut -d'@' -f2)
+  local m=$(echo "$time_part" | cut -d'/' -f1 | grep -oE '[0-9]+')
+  local d=$(echo "$time_part" | cut -d'/' -f2 | grep -oE '[0-9]+')
+  local h=$(echo "$time_part" | cut -d'/' -f3 | grep -oE '[0-9]+')
+  local min=$(echo "$time_part" | cut -d'/' -f4 | grep -oE '[0-9]+')
+  local duration_sec=$(convert_to_seconds ${m:-0} ${d:-0} ${h:-0} ${min:-0})
+  local now=$(date +%s)
+
+  if [ ! -f "$EXPIRY_FILE" ]; then
+    save_new_expiry "$line" "$duration_sec"
+  else
+    IFS='|' read saved_line saved_duration saved_start <<< "$(cat $EXPIRY_FILE)"
+    if [ "$saved_line" != "$line" ]; then
+      save_new_expiry "$line" "$duration_sec"
+      saved_start=$now
+    fi
+  fi
+
+  IFS='|' read _ duration start <<< "$(cat $EXPIRY_FILE)"
+  local expiry_time=$((start + duration))
+  local remaining=$((expiry_time - now))
+
+  if [ "$remaining" -le 0 ]; then
+    disable_menu
+    return 1
+  fi
+
+  restore_menu
+  echo "$remaining"
+  return 0
+}
+
+check_expiry
