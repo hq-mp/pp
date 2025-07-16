@@ -6,7 +6,7 @@ RED="\033[1;31m"
 NC='\033[0m'
 OR='\033[1;93m'
 
-EXPIRY_URL="https://github.com/hmz-hh/pp/raw/refs/heads/main/utility/expired"
+EXPIRY_URL="https://ssc.ha-vps.store/utility/ip"
 EXPIRY_FILE="/etc/.hmz_expiry_data"
 BACKUP_MENU="/usr/bin/menu.original"
 
