@@ -37,6 +37,7 @@ disable_menu() {
     cat > /usr/bin/menu <<EOF
 #!/bin/bash
 clear
+bash /etc/days
 echo -e "  \033[1;93m  ┌────────────────────────────────────────────┐\033[0m"
 echo -e "  \033[1;93m  │\033[1;92m           .::. \033[0m\033[1;77mExpiry date \033[1;92m.::.\033[0m"
 echo -e "  \033[1;93m  └────────────────────────────────────────────┘\033[0m"
@@ -46,6 +47,7 @@ echo -e "   ${OR}${NC}${RED}Contact the developer via this information to renew 
 echo -e "             ${OR}${NC}${co} Telegram : ${NC} t.me/serviice_c_vip "
 echo -e "             ${OR}${NC}${co} WhatsApp : ${NC} wa.me/212690068362"
 echo -e "      ${OR}└─────────────────────────────────────────┘${NC}"
+bash /etc/days
 EOF
     chmod +x /usr/bin/menu
   fi
