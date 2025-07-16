@@ -10,10 +10,6 @@ EXPIRY_URL="https://github.com/hmz-hh/pp/raw/refs/heads/main/utility/expired"
 EXPIRY_FILE="/etc/.hmz_expiry_data"
 BACKUP_MENU="/usr/bin/menu.original"
 
-#DEV_NAME="HMZ-HH"
-#DEV_CONTACT="Contact@example.com"
-#DEV_TELEGRAM="@hmz_hh"
-
 convert_to_seconds() {
   echo $(( $1 * 2592000 + $2 * 86400 + $3 * 3600 + $4 * 60 ))
 }
@@ -35,15 +31,10 @@ disable_menu() {
   if [ -f /usr/bin/menu ]; then
     [ ! -f "$BACKUP_MENU" ] && cp /usr/bin/menu "$BACKUP_MENU"
     cat > /usr/bin/menu <<EOF
-#echo -e "${RED}❌ انتهت صلاحية الاستخدام! المرجو التواصل مع المطور.${NC}"
-#echo "اسم المطور: $DEV_NAME"
-#echo "الاتصال: $DEV_CONTACT"
-#echo "تيليجرام: $DEV_TELEGRAM"
 clear
 echo -e "  \033[1;93m  ┌────────────────────────────────────────────┐\033[0m"
 echo -e "  \033[1;93m  │\033[1;92m           .::. \033[0m\033[1;77mExpiry date \033[1;92m.::.\033[0m"
 echo -e "  \033[1;93m  └────────────────────────────────────────────┘\033[0m"
-echo ""
 echo -e "      ${OR}┌────────────────────────────────────────┐${NC}"
 echo -e "   ${OR}${NC}${RED}You no longer have permissions to use the script ! ${NC}"
 echo -e "   ${OR}${NC}${RED}Contact the developer via this information to renew : ${NC}"
