@@ -44,8 +44,8 @@ echo -e "  \033[1;93m  └──────────────────
 echo -e "      ${OR}┌────────────────────────────────────────┐${NC}"
 echo -e "   ${OR}${NC}${RED}You no longer have permissions to use the script ! ${NC}"
 echo -e "   ${OR}${NC}${RED}Contact the developer via this information to renew : ${NC}"
-echo -e "             ${OR}${NC}${co} Telegram : ${NC} t.me/serviice_c_vip "
-echo -e "             ${OR}${NC}${co} WhatsApp : ${NC} wa.me/212690068362"
+echo -e "            ${OR}${NC}${co} Telegram : ${NC} t.me/serviice_c_vip "
+echo -e "            ${OR}${NC}${co} WhatsApp : ${NC} wa.me/212690068362"
 echo -e "      ${OR}└─────────────────────────────────────────┘${NC}"
 bash /etc/days
 EOF
