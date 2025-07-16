@@ -10,9 +10,6 @@ EXPIRY_URL="https://ssc.ha-vps.store/utility/ip"
 EXPIRY_FILE="/etc/.hmz_expiry_data"
 BACKUP_MENU="/usr/bin/menu.original"
 
-DEV_NAME="HMZ-HH"
-DEV_CONTACT="Contact@example.com"
-DEV_TELEGRAM="@hmz_hh"
 
 convert_to_seconds() {
   echo $(( $1 * 2592000 + $2 * 86400 + $3 * 3600 + $4 * 60 ))
