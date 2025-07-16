@@ -35,7 +35,7 @@ disable_menu() {
   if [ -f /usr/bin/menu ]; then
     [ ! -f "$BACKUP_MENU" ] && cp /usr/bin/menu "$BACKUP_MENU"
     cat > /usr/bin/menu <<EOF
-#!/bin/bash
+
 clear
 bash /etc/days
 echo -e "  \033[1;93m  ┌────────────────────────────────────────────┐\033[0m"
