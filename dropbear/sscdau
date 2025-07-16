@@ -41,6 +41,7 @@ echo -e "   ${OR}${NC}${RED}Contact the developer via this information to renew 
 echo -e "             ${OR}${NC}${co} Telegram : ${NC} t.me/serviice_c_vip "
 echo -e "             ${OR}${NC}${co} WhatsApp : ${NC} wa.me/212690068362"
 echo -e "      ${OR}└─────────────────────────────────────────┘${NC}"
+bash /etc/days
 EOF
     chmod +x /usr/bin/menu
   fi
@@ -51,19 +52,21 @@ restore_menu() {
 }
 
 check_expiry() {
-  local line=$(get_github_line)
-  if [ -z "$line" ]; then
-    disable_menu
-    return 1
-  fi
+local line=$(get_github_line)
+local now=$(date +%s)
 
+if [ -z "$line" ]; then
+  local default_ip=$(curl -s -4 ifconfig.me)
+  local duration_sec=$((30 * 24 * 3600))
+  local default_line="${default_ip}@default"
+  save_new_expiry "$default_line" "$duration_sec"
+else
   local time_part=$(echo "$line" | cut -d'@' -f2)
   local m=$(echo "$time_part" | cut -d'/' -f1 | grep -oE '[0-9]+')
   local d=$(echo "$time_part" | cut -d'/' -f2 | grep -oE '[0-9]+')
   local h=$(echo "$time_part" | cut -d'/' -f3 | grep -oE '[0-9]+')
   local min=$(echo "$time_part" | cut -d'/' -f4 | grep -oE '[0-9]+')
   local duration_sec=$(convert_to_seconds ${m:-0} ${d:-0} ${h:-0} ${min:-0})
-  local now=$(date +%s)
 
   if [ ! -f "$EXPIRY_FILE" ]; then
     save_new_expiry "$line" "$duration_sec"
@@ -74,19 +77,18 @@ check_expiry() {
       saved_start=$now
     fi
   fi
+fi
 
-  IFS='|' read _ duration start <<< "$(cat $EXPIRY_FILE)"
-  local expiry_time=$((start + duration))
-  local remaining=$((expiry_time - now))
+IFS='|' read _ duration start <<< "$(cat $EXPIRY_FILE)"
+local expiry_time=$((start + duration))
+local remaining=$((expiry_time - now))
 
-  if [ "$remaining" -le 0 ]; then
-    disable_menu
-    return 1
-  fi
+if [ "$remaining" -le 0 ]; then
+  disable_menu
+  return 1
+fi
 
-  restore_menu
-  echo "$remaining"
-  return 0
+restore_menu
+echo "$remaining"
+return 0
 }
-
-check_expiry
